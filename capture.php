@@ -1,7 +1,17 @@
 <?php
 
+// echo "okdede";
+// print_r(key($_POST));
+// header('Content-Type: application/json');
+
+// $tmp = );
+// print_r($_POST['filter']);
+// print(str_replace('data:image/png;base64,','', key($_POST)));
+
+// echo ""$_POST);
 $img = base64_decode(str_replace('data:image/png;base64,','', $_POST['img']));
 $filter = base64_decode(str_replace('data:image/png;base64,','', $_POST['filter']));
+// imagepng($_POST['img'], 'photos/test');
 
 // $im = imagecreatefromString($file);
 //   if ($im !== false) {
@@ -14,28 +24,31 @@ $filter = base64_decode(str_replace('data:image/png;base64,','', $_POST['filter'
 //   exit();
 
 
+
   // Traitement de l'image source
   $source = imagecreatefromString($filter);
   $largeur_source = imagesx($source);
   $hauteur_source = imagesy($source);
   imagealphablending($source, true);
   imagesavealpha($source, true);
-  // $percent = 0.5;
+  $percent = 0.5;
   //
   // // Content type
   // header('Content-Type: image/jpeg');
   //
   // // Calcul des nouvelles dimensions
   // list($width, $height) = getimagesize($source);
-  // $newwidth = $width * $percent;
-  // $newheight = $height * $percent;
+  $newwidth = $largeur_source * $percent;
+  $newheight = $hauteur_source * $percent;
   //
   // // Chargement
-  // $new = imagecreatetruecolor($newwidth, $newheight);
+  $new = imagecreatetruecolor($newwidth, $newheight);
   // // $source = imagecreatefromjpeg($source);
   //
   // // Redimensionnement
-  // imagecopyresized($new, $source, 0, 0, 0, 0, $newwidth, $newheight, $width, $height);
+  imagecopyresized($new, $source, 0, 0, 0, 0, $newwidth, $newheight, $width, $height);
+
+
 
   // Traitement de l'image destination
   $destination = imagecreatefromString($img);
@@ -52,15 +65,12 @@ $filter = base64_decode(str_replace('data:image/png;base64,','', $_POST['filter'
 
   // On affiche l'image de destination
   $path = 'photos/'.time().'.png';
-
   imagepng($destination, $path);
   echo $path;
-
   // imagedestroy($source);
   // return ($destination);
   // echo "imagepng($destination)";
   imagedestroy($destination);
 
-// return;
 
  ?>

@@ -21,11 +21,23 @@ try {
     );
     ");
     $pdo->exec("
+    CREATE TABLE IF NOT EXISTS images
+    (
+    id INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
+    id_user INT NOT NULL,
+    FOREIGN KEY (id_user) REFERENCES Users(id),
+    name VARCHAR(255) NOT NULL,
+    path VARCHAR(255) NOT NULL
+    );
+    ");
+    $pdo->exec("
     CREATE TABLE IF NOT EXISTS comments
     (
     id INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
     id_user INT NOT NULL,
-    FOREIGN KEY (id) REFERENCES Users(id),
+    id_image INT NOT NULL,
+    FOREIGN KEY (id_user) REFERENCES Users(id),
+    FOREIGN KEY (id_image) REFERENCES Images(id),
     content TEXT NOT NULL
     );
     ");
@@ -34,19 +46,10 @@ try {
     (
     id INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
     id_user INT NOT NULL,
-    FOREIGN KEY (id) REFERENCES Users(id),
+    id_image INT NOT NULL,
+    FOREIGN KEY (id_user) REFERENCES Users(id),
+    FOREIGN KEY (id_image) REFERENCES Images(id),
     liked BOOLEAN NOT NULL DEFAULT FALSE
-    );
-    ");
-    $pdo->exec("
-    CREATE TABLE IF NOT EXISTS images
-    (
-    id INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
-    id_like INT NOT NULL,
-    id_comment INT NOT NULL,
-    name VARCHAR(255) NOT NULL,
-    FOREIGN KEY (id_comment) REFERENCES Comments(id),
-    FOREIGN KEY (id_like) REFERENCES Likes(id)
     );
     ");
     echo "Database 'db_abonneca' created successfully.<br>";

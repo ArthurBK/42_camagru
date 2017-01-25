@@ -19,7 +19,7 @@ var video = function() {
         // var reader = new FileReader();
         // reader.onload = function(event){
         var img = new Image();
-        img.src = 'filters/moustache1.png';
+        img.src = 'filters/moustache2.png';
         img.onload = function() {
                 photo.width = img.width;
                 photo.height = img.height;
@@ -71,7 +71,7 @@ var video = function() {
                 filter: filter
             },
             success: function(data) {
-                // console.log(data);
+                console.log(data);
                 var img = new Image();
                 img.src = data;
                 img.onload = function() {
