@@ -1,28 +1,8 @@
 <?php
-
-// echo "okdede";
-// print_r(key($_POST));
-// header('Content-Type: application/json');
-
-// $tmp = );
-// print_r($_POST['filter']);
-// print(str_replace('data:image/png;base64,','', key($_POST)));
-
-// echo ""$_POST);
+session_start();
+include("../install.php");
 $img = base64_decode(str_replace('data:image/png;base64,','', $_POST['img']));
 $filter = base64_decode(str_replace('data:image/png;base64,','', $_POST['filter']));
-// imagepng($_POST['img'], 'photos/test');
-
-// $im = imagecreatefromString($file);
-//   if ($im !== false) {
-// //       // $save = imagepng($im, '/path/to/the/new/file.png');
-//       echo json_encode(array('file' => true));
-//   }
-//   else {
-//       echo json_encode(array('error' => 'Could not parse image string.'));
-//   }
-//   exit();
-
 
 
   // Traitement de l'image source
@@ -35,20 +15,18 @@ $filter = base64_decode(str_replace('data:image/png;base64,','', $_POST['filter'
   //
   // // Content type
   // header('Content-Type: image/jpeg');
-  //
+
   // // Calcul des nouvelles dimensions
   // list($width, $height) = getimagesize($source);
   $newwidth = $largeur_source * $percent;
   $newheight = $hauteur_source * $percent;
-  //
+
   // // Chargement
   $new = imagecreatetruecolor($newwidth, $newheight);
   // // $source = imagecreatefromjpeg($source);
-  //
+
   // // Redimensionnement
   imagecopyresized($new, $source, 0, 0, 0, 0, $newwidth, $newheight, $width, $height);
-
-
 
   // Traitement de l'image destination
   $destination = imagecreatefromString($img);
@@ -71,6 +49,5 @@ $filter = base64_decode(str_replace('data:image/png;base64,','', $_POST['filter'
   // return ($destination);
   // echo "imagepng($destination)";
   imagedestroy($destination);
-
 
  ?>
