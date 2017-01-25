@@ -3,7 +3,7 @@
   <br />
   Username: <input type="text" name="username" required/>
   <br />
-  Mot de passe: <input type="password" name="passwd" required/>
+  Mot de passe: <input type="password" name="password" required/>
   <br />
   minimum 6 caracteres
   <br />

@@ -17,7 +17,7 @@ try {
     username VARCHAR(255) NOT NULL,
     email VARCHAR(255) NOT NULL,
     password VARCHAR(255) NOT NULL,
-    date_de_creation DATE NOT NULL
+    CONSTRAINT uc_UserID UNIQUE (username,email)
     );
     ");
     $pdo->exec("
@@ -26,8 +26,7 @@ try {
     id INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
     id_user INT NOT NULL,
     FOREIGN KEY (id) REFERENCES Users(id),
-    content TEXT NOT NULL,
-    date_de_creation DATE NOT NULL
+    content TEXT NOT NULL
     );
     ");
     $pdo->exec("
@@ -36,8 +35,7 @@ try {
     id INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
     id_user INT NOT NULL,
     FOREIGN KEY (id) REFERENCES Users(id),
-    liked BOOLEAN NOT NULL DEFAULT FALSE,
-    date_de_creation DATE NOT NULL
+    liked BOOLEAN NOT NULL DEFAULT FALSE
     );
     ");
     $pdo->exec("
@@ -48,8 +46,7 @@ try {
     id_comment INT NOT NULL,
     name VARCHAR(255) NOT NULL,
     FOREIGN KEY (id_comment) REFERENCES Comments(id),
-    FOREIGN KEY (id_like) REFERENCES Likes(id),
-    date_de_creation DATE NOT NULL
+    FOREIGN KEY (id_like) REFERENCES Likes(id)
     );
     ");
     echo "Database 'db_abonneca' created successfully.<br>";

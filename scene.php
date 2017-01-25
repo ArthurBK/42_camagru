@@ -1,9 +1,8 @@
-<!DOCTYPE html>
-<html>
-<head>
-	<title>Camagru</title>
+<?php
+	include("install.php");
+	include("header.php");
+ ?>
 
-</head>
 <body>
 <video id="video"></video>
 <button id="startbutton">Prendre une photo</button>
