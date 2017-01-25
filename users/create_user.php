@@ -1,10 +1,10 @@
 <?PHP
 session_start();
 // include("auth.php");
-if (empty($_POST['password']) || empty($_POST['login']) || $_POST['submit'] !== "OK")
-  header("Location: users/new_user.php");
-else
-{
+if (empty($_POST['password']) || empty($_POST['username'])
+ || empty($_POST['email']) || $_POST['submit'] !== "OK") {
+    header("Location: users/new_user.php");
+} else {
 
 
   // foreach ($my_array as $key => $value) {
@@ -13,25 +13,26 @@ else
   //         header("Location: new_user.php");
   //       return;
   //   }
+try {
+    $query = 'INSERT INTO users(username, email, password) VALUES (:username, :email, :password);';
+    $prep = $pdo->prepare($query);
 
-  $query = 'INSERT INTO users FROM foo WHERE id=:id AND cat=:categorie LIMIT :limit;';
-  $prep = $pdo->prepare($query);
+    $prep->bindValue(':username', $_POST['username'], PDO::PARAM_STR);
+    $prep->bindValue(':email', $_POST['email'], PDO::PARAM_STR);
+    $prep->bindValue(':password', hash('whirlpool', $_POST['password']), PDO::PARAM_STR);
+    $prep->execute();
 
-  $prep->bindValue(':limit', 10, PDO::PARAM_INT);
-  $prep->bindValue(':id', 120, PDO::PARAM_INT);
-  $prep->bindValue(':categorie', 'bar', PDO::PARAM_STR);
-  $prep->execute();
+    $prep->closeCursor();
+    $prep = null;
+} catch (PDOException $e) {
+    $msg = 'ERREUR PDO dans ' . $e->getFile() . ' L.' . $e->getLine() . ' : ' . $e->getMessage();
+    die($msg);
+}
 
-  $arrAll = $prep->fetchAll();
-
-  $prep->closeCursor();
-  $prep = NULL;
-
-  "login" => $_POST['login'],
-  "passwd" => $_POST['passwd'],
+  // "login" => $_POST['login'],
+  // "passwd" => $_POST['passwd'],
 
 
   header("Location: scene.php");
   return ;
 }
-?>

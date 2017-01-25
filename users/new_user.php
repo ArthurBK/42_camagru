@@ -1,7 +1,7 @@
 <form action="create_user.php" method="post">
   Email: <input type="email" name="email" required/>
   <br />
-  Username: <input type="text" name="login" required/>
+  Username: <input type="text" name="username" required/>
   <br />
   Mot de passe: <input type="password" name="passwd" required/>
   <br />
