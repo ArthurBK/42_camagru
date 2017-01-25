@@ -5,6 +5,7 @@ var video = function() {
         res = document.querySelector('#res'),
         canvas = document.querySelector('#canvas'),
         photo = document.querySelector('#photo'),
+        mypics = document.querySelector('#mypics'),
         startbutton = document.querySelector('#startbutton'),
         width = 520,
         height = 0;
@@ -18,7 +19,7 @@ var video = function() {
         // var reader = new FileReader();
         // reader.onload = function(event){
         var img = new Image();
-        img.src = 'moustache1.png';
+        img.src = 'filters/moustache1.png';
         img.onload = function() {
                 photo.width = img.width;
                 photo.height = img.height;
@@ -77,8 +78,10 @@ var video = function() {
                         res.width = img.width;
                         res.height = img.height;
                         // photo.getContext('2d').drawImage(img, 0, 0);
-                        res.getContext('2d').drawImage(img, 0, 0, width, height);
+                        // res.getContext('2d').drawImage(img, 0, 0, width, height);
                     }
+            mypics.appendChild(img);
+
             },
         });
     }
@@ -89,7 +92,7 @@ var video = function() {
         canvas.getContext('2d').drawImage(video, 0, 0, width, height);
         var data = canvas.toDataURL('image/png');
         // console.log(data);
-        httpRequest('POST', "test.php", data);
+        httpRequest('POST', "capture.php", data);
         // photo.setAttribute('src', data);
     }
 
@@ -100,7 +103,7 @@ var video = function() {
 
 }();
 
-// 
+//
 // function validateEmail(email) {
 //     var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 //     return re.test(email);

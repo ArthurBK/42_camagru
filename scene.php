@@ -18,6 +18,7 @@
 <canvas id="canvas" hidden></canvas>
 <canvas id="photo" hidden></canvas>
 <canvas id="res" ></canvas>
+<div id="mypics" ></div>
 <!-- <img src="http://placekitten.com/g/320/261" id="photo" alt="photo"> -->
 
 

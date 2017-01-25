@@ -1,17 +1,7 @@
 <?php
 
-// echo "okdede";
-// print_r(key($_POST));
-// header('Content-Type: application/json');
-
-// $tmp = );
-// print_r($_POST['filter']);
-// print(str_replace('data:image/png;base64,','', key($_POST)));
-
-// echo ""$_POST);
 $img = base64_decode(str_replace('data:image/png;base64,','', $_POST['img']));
 $filter = base64_decode(str_replace('data:image/png;base64,','', $_POST['filter']));
-// imagepng($_POST['img'], 'photos/test');
 
 // $im = imagecreatefromString($file);
 //   if ($im !== false) {
@@ -22,7 +12,6 @@ $filter = base64_decode(str_replace('data:image/png;base64,','', $_POST['filter'
 //       echo json_encode(array('error' => 'Could not parse image string.'));
 //   }
 //   exit();
-
 
 
   // Traitement de l'image source
@@ -48,8 +37,6 @@ $filter = base64_decode(str_replace('data:image/png;base64,','', $_POST['filter'
   // // Redimensionnement
   // imagecopyresized($new, $source, 0, 0, 0, 0, $newwidth, $newheight, $width, $height);
 
-
-
   // Traitement de l'image destination
   $destination = imagecreatefromString($img);
   $largeur_destination = imagesx($destination);
@@ -64,8 +51,11 @@ $filter = base64_decode(str_replace('data:image/png;base64,','', $_POST['filter'
   imagecopy($destination, $source, $destination_x, $destination_y, 0, 0, $largeur_source, $hauteur_source);
 
   // On affiche l'image de destination
-  imagepng($destination, 'photos/ok.png');
-  
+  $path = 'photos/'.time().'.png';
+
+  imagepng($destination, $path);
+  echo $path;
+
   // imagedestroy($source);
   // return ($destination);
   // echo "imagepng($destination)";
