@@ -7,8 +7,8 @@ print("<div><a href=\"panier.php\">Mon Panier</a></div>");
 
 if ($_SESSION['loggued_on_user'] != "") {
     print("<div><a href=\"account.php\">My Account</a></div>");
-    print("<div><a href=\"logout.php\">Log Out</a></div>");
+    print("<div><a href=\"sessions/logout.php\">Log Out</a></div>");
 } else {
-    print("<div><a href=\"users/new_user.php\">Sign up</a></div><div><a href=\"login_form.php\">Login</a></div>");
+    print("<div><a href=\"users/new_user.php\">Sign up</a></div><div><a href=\"sessions/login_form.php\">Login</a></div>");
 }
 print("</div>");

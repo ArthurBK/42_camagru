@@ -65,6 +65,7 @@ $filter = base64_decode(str_replace('data:image/png;base64,','', $_POST['filter'
 
   // On affiche l'image de destination
   imagepng($destination, 'photos/ok.png');
+  
   // imagedestroy($source);
   // return ($destination);
   // echo "imagepng($destination)";
