@@ -12,6 +12,23 @@
 <canvas id="canvas" hidden></canvas>
 <canvas id="photo" hidden></canvas>
 <canvas id="res" hidden ></canvas>
+
+<form action="">
+<div id="filters" >
+<?php
+  $dir = new DirectoryIterator(dirname(__FILE__).'/filters');
+foreach ($dir as $fileinfo) {
+    if (!$fileinfo->isDot()) {
+  $src = 'filters/'.$fileinfo->getFilename();
+
+          echo "<input type=\"radio\" name=\"filter\" ><img class=\"filter\" src=$src ></img>";
+        // print($fileinfo->getFilename());
+    }
+}
+?>
+</form>
+</div>
+
 <div id="mypics" >
 
 <?php
