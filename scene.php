@@ -8,13 +8,13 @@
  ?>
  <br>
 
-<div class="webcam">
+<div id="webcam">
 <video id="video"></video>
 <canvas id="canvas"></canvas>
 <canvas id="photo" ></canvas>
 </div>
 <button id="startbutton">Prendre une photo</button>
-<canvas id="overlay"></canvas>
+<!-- <canvas id="overlay"></canvas> -->
 <canvas id="res" hidden ></canvas>
 
 <form action="">
@@ -24,12 +24,12 @@
 foreach ($dir as $fileinfo) {
     if (!$fileinfo->isDot()) {
         $src = 'filters/'.$fileinfo->getFilename();
-        echo "<input type=\"radio\" name=\"filter\" ><img class=\"filter\" src=$src ></img>";
+        echo "<input type=\"radio\" name=\"filter\" value=\"$src\" ><img class=\"filter\" src=$src ></img>";
     }
 }
 ?>
-</form>
 </div>
+</form>
 <div id="mypics" >
 <?php
   try {

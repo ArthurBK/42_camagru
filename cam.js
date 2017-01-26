@@ -4,7 +4,7 @@ var video = function() {
         video = document.querySelector('#video'),
         res = document.querySelector('#res'),
         canvas = document.querySelector('#canvas'),
-        overlay = document.querySelector('#overlay'),
+        webcam = document.getElementById('webcam'),
         photo = document.querySelector('#photo'),
         mypics = document.querySelector('#mypics'),
         startbutton = document.querySelector('#startbutton'),
@@ -19,7 +19,7 @@ var video = function() {
     function handleImage(e) {
         // reader.onload = function(event){
         var img = new Image();
-        img.src = 'filters/moustache2.png';
+        img.src = e;
         img.onload = function() {
                 photo.width = img.width;
                 photo.height = img.height;
@@ -29,7 +29,7 @@ var video = function() {
             // reader.readAsDataURL(e);
     }
 
-    handleImage('moustache1.png');
+    handleImage('filters/moustache1.png');
     navigator.getUserMedia({
             video: true,
             audio: false
@@ -54,8 +54,19 @@ var video = function() {
       // var canvas = document.querySelector('canvas'),
           context = canvas.getContext('2d');
       context.drawImage(video, 0, 0, canvas.width, canvas.height);
-      overlay.src = URL.createObjectURL('filters/moustache1.png');
+      // overlay.src = URL.createObjectURL('filters/moustache1.png');
       setTimeout(drawFrame, 50);
+    }
+
+    var handler = function() {
+    handleImage(this.value);
+        // console.log(this.value);
+    };
+
+    var radios = document.getElementsByName('filter');
+
+    for(var i = radios.length; i--; ) {
+        radios[i].onclick = handler;
     }
 
 
@@ -67,8 +78,8 @@ var video = function() {
             video.setAttribute('height', height);
             canvas.setAttribute('width', width);
             canvas.setAttribute('height', height);
-            overlay.setAttribute('width', width);
-            overlay.setAttribute('height', height);
+            webcam.style.width = width + 'px';
+            webcam.style.height = height + 'px';
             streaming = true;
         }
     }, false);
