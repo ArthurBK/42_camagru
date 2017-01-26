@@ -21,15 +21,14 @@ var video = function() {
         var img = new Image();
         img.src = e;
         img.onload = function() {
-                photo.width = img.width;
-                photo.height = img.height;
-                photo.getContext('2d').drawImage(img, 0, 0);
-            }
-            // }
-            // reader.readAsDataURL(e);
+            photo.width = img.width;
+            photo.height = img.height;
+            photo.getContext('2d').drawImage(img, 0, 0);
+        }
+        // }
+        // reader.readAsDataURL(e);
     }
 
-    handleImage('filters/moustache1.png');
     navigator.getUserMedia({
             video: true,
             audio: false
@@ -51,21 +50,21 @@ var video = function() {
     );
 
     function drawFrame() {
-      // var canvas = document.querySelector('canvas'),
-          context = canvas.getContext('2d');
-      context.drawImage(video, 0, 0, canvas.width, canvas.height);
-      // overlay.src = URL.createObjectURL('filters/moustache1.png');
-      setTimeout(drawFrame, 50);
+        // var canvas = document.querySelector('canvas'),
+        context = canvas.getContext('2d');
+        context.drawImage(video, 0, 0, canvas.width, canvas.height);
+        // overlay.src = URL.createObjectURL('filters/moustache1.png');
+        setTimeout(drawFrame, 50);
     }
 
     var handler = function() {
-    handleImage(this.value);
+        handleImage(this.value);
         // console.log(this.value);
     };
 
     var radios = document.getElementsByName('filter');
 
-    for(var i = radios.length; i--; ) {
+    for (var i = radios.length; i--;) {
         radios[i].onclick = handler;
     }
 
@@ -95,16 +94,20 @@ var video = function() {
             },
             success: function(data) {
                 // console.log(data);
-                var img = new Image();
-                img.src = data;
-                img.onload = function() {
-                        res.width = img.width;
-                        res.height = img.height;
-                        // photo.getContext('2d').drawImage(img, 0, 0);
-                        // res.getContext('2d').drawImage(img, 0, 0, width, height);
-                    }
-            mypics.appendChild(img);
-
+                location.reload();
+                //     var div = document.createElement('div');
+                //     var img = new Image();
+                //     img.src = data;
+                //     img.onload = function() {
+                //             res.width = img.width;
+                //             res.height = img.height;
+                //             // photo.getContext('2d').drawImage(img, 0, 0);
+                //             // res.getContext('2d').drawImage(img, 0, 0, width, height);
+                //         }
+                // // div.className = 'image';
+                // // div.innerHTML = '<form action="delete_image.php" method="post"><input type="hidden" name="id_image"value=$image[id] ><input type="submit" value="delete" ></form></div>'
+                // div.appendChild(img);
+                // mypics.appendChild(div);
             },
         });
     }
