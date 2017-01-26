@@ -1,10 +1,8 @@
-#!/usr/bin/php
 <?php
 try {
     $DB_DSN = "mysql:host=localhost;";
     $DB_USER = "root";
     $DB_PASSWORD = "root";
-
 
     $pdo = new PDO($DB_DSN, $DB_USER, $DB_PASSWORD);
     $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);//Ligne 4
@@ -52,7 +50,7 @@ try {
     liked BOOLEAN NOT NULL DEFAULT FALSE
     );
     ");
-    echo "Database 'db_abonneca' created successfully.<br>";
+    // echo "Database 'db_abonneca' created successfully.<br>";
 } catch (PDOException $e) {
     $msg = 'ERREUR PDO dans ' . $e->getFile() . ' L.' . $e->getLine() . ' : ' . $e->getMessage();
     die($msg);

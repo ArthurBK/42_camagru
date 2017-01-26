@@ -14,6 +14,7 @@ session_start();
 <div class="navbar">
   <ul>
     <li> <a href="scene.php"> <strong> Selfie Generator </strong> </a></li>
+    <li> <a href="index.php"> <strong> Gallery </strong> </a></li>
 <!-- Navbar -->
 
 <?php
@@ -30,4 +31,3 @@ if ($_SESSION['loggued_on_user'] != "") {
 print("</div>");?>
   </ul>
 </div>
-
