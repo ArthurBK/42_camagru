@@ -2,7 +2,8 @@
 session_start();
 include "header.php";
 include "install.php";
-if (isset($_SESSION['loggued_on_user']))
+$connected = false;
+if (isset($_SESSION['loggued_on_user']) && $_SESSION['loggued_on_user'] !== "")
   $connected = true;
 
 try {
@@ -29,8 +30,9 @@ try {
         $prep = null;
         $thumb =  json_decode('"\uD83D\uDC4D"');
         echo "<div class=\"image\" ><img src=\"$image[path]\"></img></div>";
-        print("
-              <form action=\"like.php\" method=\"post\">
+        if ($connected){
+
+        print("<form action=\"like.php\" method=\"post\">
               <div>$arr[likes] Likes
               <input type=\"submit\" value=$thumb ></div>
               <input type=\"hidden\" name=\"id_image\" value=$image[id] >
@@ -47,6 +49,13 @@ try {
               </form>
               ");
     }
+else {
+        print("<div>$arr[likes] Likes");
+        foreach ($comments as $comment) {
+            echo "<div>$comment[username]: $comment[content]</div>";
+        }
+      }
+}
     // print_r($arr);
 
     // $prep->closeCursor();
