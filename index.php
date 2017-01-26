@@ -2,24 +2,17 @@
 session_start();
 include "header.php";
 include "install.php";
+if (isset($_SESSION['loggued_on_user']))
+  $connected = true;
 
-?>
-<html>
-  <head>
-    <meta charset="utf-8">
-    <title></title>
-  </head>
-  <body>
-
-<?php
 try {
     $query = 'SELECT * FROM images';
     $arr = $pdo->query($query)->fetchAll();
 
     foreach ($arr as $image) {
-        $query = 'SELECT count(*) AS "likes" FROM likes WHERE id_user=:id_user AND liked=:liked;';
+        $query = 'SELECT count(*) AS "likes" FROM likes WHERE id_image=:id_image AND liked=:liked;';
         $prep = $pdo->prepare($query);
-        $prep->bindValue(':id_user', $image[id_user], PDO::PARAM_INT);
+        $prep->bindValue(':id_image', $image[id], PDO::PARAM_INT);
         $prep->bindValue(':liked', true, PDO::PARAM_BOOL);
         $prep->execute();
         $arr = $prep->fetch();
@@ -64,8 +57,4 @@ try {
     $msg = 'ERREUR PDO dans ' . $e->getFile() . ' L.' . $e->getLine() . ' : ' . $e->getMessage();
     die($msg);
 }
-
-
 ?>
-  </body>
-</html>
