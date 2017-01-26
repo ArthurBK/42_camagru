@@ -122,3 +122,16 @@ input[type=submit] {
 .filter {
 width: 200px;
 }
+
+.webcam * {
+
+position: absolute;
+top: 0;
+left: 0;
+
+}
+
+
+.webcam {
+    position: relative;
+}

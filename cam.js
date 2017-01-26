@@ -4,6 +4,7 @@ var video = function() {
         video = document.querySelector('#video'),
         res = document.querySelector('#res'),
         canvas = document.querySelector('#canvas'),
+        overlay = document.querySelector('#overlay'),
         photo = document.querySelector('#photo'),
         mypics = document.querySelector('#mypics'),
         startbutton = document.querySelector('#startbutton'),
@@ -16,7 +17,6 @@ var video = function() {
         navigator.msGetUserMedia);
 
     function handleImage(e) {
-        // var reader = new FileReader();
         // reader.onload = function(event){
         var img = new Image();
         img.src = 'filters/moustache2.png';
@@ -50,6 +50,16 @@ var video = function() {
         }
     );
 
+    function drawFrame() {
+      // var canvas = document.querySelector('canvas'),
+          context = canvas.getContext('2d');
+      context.drawImage(video, 0, 0, canvas.width, canvas.height);
+      overlay.src = URL.createObjectURL('filters/moustache1.png');
+      setTimeout(drawFrame, 50);
+    }
+
+
+
     video.addEventListener('canplay', function(ev) {
         if (!streaming) {
             height = video.videoHeight / (video.videoWidth / width);
@@ -57,6 +67,8 @@ var video = function() {
             video.setAttribute('height', height);
             canvas.setAttribute('width', width);
             canvas.setAttribute('height', height);
+            overlay.setAttribute('width', width);
+            overlay.setAttribute('height', height);
             streaming = true;
         }
     }, false);
@@ -71,7 +83,7 @@ var video = function() {
                 filter: filter
             },
             success: function(data) {
-                console.log(data);
+                // console.log(data);
                 var img = new Image();
                 img.src = data;
                 img.onload = function() {

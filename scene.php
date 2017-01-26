@@ -7,10 +7,14 @@
     }
  ?>
  <br>
+
+<div class="webcam">
 <video id="video"></video>
+<canvas id="canvas"></canvas>
+<canvas id="photo" ></canvas>
+</div>
 <button id="startbutton">Prendre une photo</button>
-<canvas id="canvas" hidden></canvas>
-<canvas id="photo" hidden></canvas>
+<canvas id="overlay"></canvas>
 <canvas id="res" hidden ></canvas>
 
 <form action="">
@@ -19,18 +23,14 @@
   $dir = new DirectoryIterator(dirname(__FILE__).'/filters');
 foreach ($dir as $fileinfo) {
     if (!$fileinfo->isDot()) {
-  $src = 'filters/'.$fileinfo->getFilename();
-
-          echo "<input type=\"radio\" name=\"filter\" ><img class=\"filter\" src=$src ></img>";
-        // print($fileinfo->getFilename());
+        $src = 'filters/'.$fileinfo->getFilename();
+        echo "<input type=\"radio\" name=\"filter\" ><img class=\"filter\" src=$src ></img>";
     }
 }
 ?>
 </form>
 </div>
-
 <div id="mypics" >
-
 <?php
   try {
       $query = 'SELECT * FROM users WHERE username=:username;';
