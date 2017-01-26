@@ -16,6 +16,44 @@ var video = function() {
         navigator.mozGetUserMedia ||
         navigator.msGetUserMedia);
 
+
+        //
+        // var x = 75;
+        // var y = 50;
+        //
+        // function myMove(e){
+        //  if (dragok){
+        //   x = e.pageX - photo.offsetLeft;
+        //   y = e.pageY - photo.offsetTop;
+        //  }
+        // }
+        //
+        // function myDown(e){
+        //  if (e.pageX < x + 15 + photo.offsetLeft && e.pageX > x - 15 +
+        //  photo.offsetLeft && e.pageY < y + 15 + photo.offsetTop &&
+        //  e.pageY > y -15 + photo.offsetTop){
+        //   x = e.pageX - photo.offsetLeft;
+        //   y = e.pageY - photo.offsetTop;
+        //   dragok = true;
+        //   photo.onmousemove = myMove;
+        //  }
+        // }
+        //
+        // function myUp(){
+        //  dragok = false;
+        //  photo.onmousemove = null;
+        // }
+        //
+        // photo.onmousedown = myDown;
+        // photo.onmouseup = myUp;
+        //
+
+
+
+
+
+
+
     function handleImage(e) {
         // reader.onload = function(event){
         var img = new Image();
@@ -23,7 +61,7 @@ var video = function() {
         img.onload = function() {
             photo.width = img.width;
             photo.height = img.height;
-            photo.getContext('2d').drawImage(img, 0, 0);
+            photo.getContext('2d').drawImage(img, photo.width / 2, photo.height / 2, 200 , 200);
         }
         // }
         // reader.readAsDataURL(e);
