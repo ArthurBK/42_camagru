@@ -108,3 +108,13 @@ background-color: gray;
 .image {
 /*margin: auto;*/
 }
+
+input[type=submit] {
+  /* padding: 5px 15px; */
+  background: white;
+  border: 0 none;
+   cursor: pointer;
+  /* -webkit-border-radius: 5px; */
+  border-radius: 5px;
+  font-size: 20px;
+ }

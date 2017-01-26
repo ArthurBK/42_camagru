@@ -3,12 +3,21 @@ session_start();
 include "header.php";
 include "install.php";
 
+?>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body>
+
+<?php
 try {
     $query = 'SELECT * FROM images';
     $arr = $pdo->query($query)->fetchAll();
 
     foreach ($arr as $image) {
-    $query = 'SELECT count(*) AS "likes" FROM likes WHERE id_user=:id_user AND liked=:liked;';
+        $query = 'SELECT count(*) AS "likes" FROM likes WHERE id_user=:id_user AND liked=:liked;';
         $prep = $pdo->prepare($query);
         $prep->bindValue(':id_user', $image[id_user], PDO::PARAM_INT);
         $prep->bindValue(':liked', true, PDO::PARAM_BOOL);
@@ -25,11 +34,16 @@ try {
         $comments = $prep->fetchAll();
         $prep->closeCursor();
         $prep = null;
-
+        $thumb =  json_decode('"\uD83D\uDC4D"');
         echo "<div class=\"image\" ><img src=\"$image[path]\"></img></div>";
-        echo "<div>$arr[likes] Likes</div>";
+        print("
+              <form action=\"like.php\" method=\"post\">
+              <div>$arr[likes] Likes
+              <input type=\"submit\" value=$thumb ></div>
+              </form>
+              ");
         foreach ($comments as $comment) {
-        echo "<div>$comment[username]: $comment[content]</div>";
+            echo "<div>$comment[username]: $comment[content]</div>";
         }
         print("
               <form action=\"comment.php\" method=\"post\">
@@ -49,3 +63,8 @@ try {
     $msg = 'ERREUR PDO dans ' . $e->getFile() . ' L.' . $e->getLine() . ' : ' . $e->getMessage();
     die($msg);
 }
+
+
+?>
+  </body>
+</html>
