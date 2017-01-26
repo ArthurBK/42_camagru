@@ -12,11 +12,11 @@ try {
     $id_user = $arr[0][id];
     $prep->closeCursor();
     $prep = null;
-    $query = 'INSERT INTO likes(id_user, id_image, content) VALUES (:id_user, :id_image, :content);';
+    $query = 'INSERT INTO likes(id_user, id_image, liked) VALUES (:id_user, :id_image, :liked);';
     $prep = $pdo->prepare($query);
     $prep->bindValue(':id_user', $id_user, PDO::PARAM_INT);
     $prep->bindValue(':id_image', $_POST['id_image'], PDO::PARAM_INT);
-    $prep->bindValue(':content', $_POST['content'], PDO::PARAM_LOB);
+    $prep->bindValue(':liked', true, PDO::PARAM_LOB);
     $prep->execute();
     $prep->closeCursor();
     $prep = null;

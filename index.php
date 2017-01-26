@@ -40,6 +40,7 @@ try {
               <form action=\"like.php\" method=\"post\">
               <div>$arr[likes] Likes
               <input type=\"submit\" value=$thumb ></div>
+              <input type=\"hidden\" name=\"id_image\" value=$image[id] >
               </form>
               ");
         foreach ($comments as $comment) {
