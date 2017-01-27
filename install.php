@@ -50,6 +50,15 @@ try {
     liked BOOLEAN NOT NULL DEFAULT FALSE
     );
     ");
+    $pdo->exec("
+    CREATE TABLE IF NOT EXISTS tokens
+    (
+    id INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
+    id_user INT NOT NULL,
+    token TEXT NOT NULL,
+    FOREIGN KEY (id_user) REFERENCES Users(id)
+    );
+    ");
     // echo "Database 'db_abonneca' created successfully.<br>";
 } catch (PDOException $e) {
     $msg = 'ERREUR PDO dans ' . $e->getFile() . ' L.' . $e->getLine() . ' : ' . $e->getMessage();
