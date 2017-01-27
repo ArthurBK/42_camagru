@@ -12,16 +12,13 @@
 <div id="webcam">
 <video id="video"></video>
 <canvas id="canvas"></canvas>
-
-
 <canvas id="photo" ></canvas>
 </div>
-<!-- <canvas id="canvas2" ></canvas> -->
-
 <button id="startbutton">Prendre une photo</button>
-<canvas id="overlay"></canvas>
-<canvas id="res" hidden ></canvas>
-<input type="file" id="fileUpload" onchange="handleFiles(this.files)" >
+ Or Upload your pic <input type="file" id="fileUpload" onchange="handleFiles(this.files)" >
+<button type="button" onclick="bigger();" >+</button>
+<button type="button" onclick="smaller();" >-</button>
+
 <form action="">
 <div id="filters" >
 <?php
