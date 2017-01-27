@@ -123,19 +123,15 @@ var video = function() {
           canvas.width = width;
           canvas.height = height;
           canvas.getContext('2d').drawImage(video, 0, 0, width, height);
-        }// else
-          // canvas.getContext('2d').drawImage(video, 0, 0, width, height);
+        }
         var data = canvas.toDataURL();
-        // console.log(data);
         httpRequest('POST', "capture.php", data);
-        // photo.setAttribute('src', data);
     }
 
     startbutton.addEventListener('click', function(ev) {
         takepicture();
         ev.preventDefault();
     }, false);
-
 }();
 
 
@@ -215,24 +211,10 @@ function handleFiles(e){
         img.onload = function(){
             canvas.width = video.width;
             canvas.height = video.height;
-            canvas.getContext('2d').drawImage(img,0,0);
+            canvas.getContext('2d').drawImage(img, 0, 0, img.width, img.height,
+                               0, 0, canvas.width, canvas.height);
         }
         img.src = event.target.result;
     }
     reader.readAsDataURL(e.target.files[0]);
 }
-
-//
-// function handleFiles(e) {
-//   var reader = new FileReader();
-//   reader.onload = function(event){
-//       var img = new Image();
-//       img.onload = function(){
-//           canvas.width = img.width;
-//           canvas.height = img.height;
-//           canvas.getContext('2d').drawImage(img,0,0);
-//       }
-//       img.src = event.target.result;
-//   }
-//   reader.readAsDataURL(e.target.files[0]);
-// }
