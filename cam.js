@@ -1,13 +1,13 @@
 var video = function() {
 
     var streaming = false,
-        video = document.querySelector('#video'),
-        res = document.querySelector('#res'),
-        canvas = document.querySelector('#canvas'),
+        video = document.getElementById('video'),
+        res = document.getElementById('res'),
+        canvas = document.getElementById('canvas'),
         webcam = document.getElementById('webcam'),
-        photo = document.querySelector('#photo'),
-        mypics = document.querySelector('#mypics'),
-        startbutton = document.querySelector('#startbutton'),
+        // photo = document.getElementById('photo'),
+        mypics = document.getElementById('mypics'),
+        startbutton = document.getElementById('startbutton'),
         width = 520,
         height = 0;
 
@@ -16,52 +16,15 @@ var video = function() {
         navigator.mozGetUserMedia ||
         navigator.msGetUserMedia);
 
-
-        //
-        // var x = 75;
-        // var y = 50;
-        //
-        // function myMove(e){
-        //  if (dragok){
-        //   x = e.pageX - photo.offsetLeft;
-        //   y = e.pageY - photo.offsetTop;
-        //  }
-        // }
-        //
-        // function myDown(e){
-        //  if (e.pageX < x + 15 + photo.offsetLeft && e.pageX > x - 15 +
-        //  photo.offsetLeft && e.pageY < y + 15 + photo.offsetTop &&
-        //  e.pageY > y -15 + photo.offsetTop){
-        //   x = e.pageX - photo.offsetLeft;
-        //   y = e.pageY - photo.offsetTop;
-        //   dragok = true;
-        //   photo.onmousemove = myMove;
-        //  }
-        // }
-        //
-        // function myUp(){
-        //  dragok = false;
-        //  photo.onmousemove = null;
-        // }
-        //
-        // photo.onmousedown = myDown;
-        // photo.onmouseup = myUp;
-        //
-
-
-
-
-
-
-
     function handleImage(e) {
         // reader.onload = function(event){
         var img = new Image();
         img.src = e;
         img.onload = function() {
-            photo.width = img.width;
-            photo.height = img.height;
-            photo.getContext('2d').drawImage(img, photo.width / 2, photo.height / 2, 200 , 200);
+            init(img);
+            photo.width = video.width;
+            photo.height = video.height;
+            // photo.getContext('2d').drawImage(img, photo.width / 2, photo.height / 2, 200 , 200);
         }
         // }
         // reader.readAsDataURL(e);
@@ -96,12 +59,12 @@ var video = function() {
     }
 
     var handler = function() {
+      for (var i = 1; i < 1000; i++)
+              clearInterval(i);
         handleImage(this.value);
-        // console.log(this.value);
     };
 
     var radios = document.getElementsByName('filter');
-
     for (var i = radios.length; i--;) {
         radios[i].onclick = handler;
     }
@@ -167,8 +130,86 @@ var video = function() {
 
 }();
 
-//
-// function validateEmail(email) {
-//     var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-//     return re.test(email);
-// }
+
+        var canvas;
+        var ctx;
+        var x = 0;
+        var y = 0;
+        var WIDTH = 400;
+        var HEIGHT = 400;
+        var dragok = false;
+
+        function rect(x,y,w,h) {
+         ctx.beginPath();
+         ctx.rect(x,y,w,h);
+         ctx.closePath();
+         ctx.fill();
+        }
+
+      function clear() {
+       ctx.clearRect(0, 0, photo.width, photo.height);
+      }
+
+
+
+      var init = function(img) {
+       photo = document.getElementById("photo");
+       photo.onmouseup = myUp;
+       photo.onmousedown = myDown;
+       photo.witdh = 400;
+       photo.height = 400;
+       ctx = photo.getContext("2d");
+       return setInterval(function() {draw(img);}, 10);
+      }
+
+      function draw(img) {
+       clear();
+      //  ctx.fillStyle = "#FAF7F8";
+      //  rect(0,0,WIDTH,HEIGHT);
+      // var img = new Image();
+      // img.src = 'filters/moustache1.png';
+      // img.onload = function() {
+      //     // photo.width = video.width;
+      //     // photo.height = video.height;
+// console.log("yo");
+      photo.getContext('2d').drawImage(img, x, y, 200 , 200);
+      // }
+
+
+
+      }
+
+      function myMove(e){
+       if (dragok){
+        x = e.pageX - photo.offsetLeft - 100;
+        y = e.pageY - photo.offsetTop - 100;
+       }
+      }
+
+      function myDown(e){
+       if (e.pageX < x + 200 + photo.offsetLeft && e.pageX > x - 200 +
+       photo.offsetLeft && e.pageY < y + 200 + photo.offsetTop &&
+       e.pageY > y - 200 + photo.offsetTop){
+        x = e.pageX - photo.offsetLeft - 100;
+        y = e.pageY - photo.offsetTop - 100;
+        dragok = true;
+        photo.onmousemove = myMove;
+       }
+      }
+
+      function myUp(){
+       dragok = false;
+       photo.onmousemove = null;
+      }
+
+
+      // photo.onmousedown = myDown;
+      // photo.onmouseup = myUp;
+
+
+
+
+
+
+
+ // canvas.observe("object:moving", function (event) {console.log("yo");});

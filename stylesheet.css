@@ -57,7 +57,7 @@ background-color: gray;
     padding: 10px;
 }
 
-    #video {
+    /*#video {
   border: 1px solid black;
   box-shadow: 2px 2px 3px black;
   width:320px;
@@ -69,11 +69,11 @@ background-color: gray;
   box-shadow: 2px 2px 3px black;
   width:320px;
   height:240px;
-}
-
+}*/
+/*
 #canvas {
   display:none;
-}
+}*/
 
 .camera {
   width: 340px;
@@ -126,15 +126,15 @@ width: 200px;
 #webcam > * {
 
 position: absolute;
-top: 0;
-left: 22%;
+/*top: 0;*/
+/*left: 22%;*/
 
 }
 
 
 #webcam {
     margin: auto;
-    position: relative;
+    /*position: relative;*/
 }
 
 #mypics {

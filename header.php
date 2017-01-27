@@ -18,7 +18,7 @@ session_start();
 <!-- Navbar -->
 
 <?php
-print("<link rel=\"stylesheet\" href=\"style.css\" type=\"text/css\">");
+// print("<link rel=\"stylesheet\" href=\"stylesheet.css\" type=\"text/css\">");
 print("<script src=\"//code.jquery.com/jquery-1.11.0.min.js\"></script>");
 print("<div class=\"navbar\">");
 

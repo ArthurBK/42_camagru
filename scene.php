@@ -8,13 +8,18 @@
  ?>
  <br>
 
+
 <div id="webcam">
 <video id="video"></video>
 <canvas id="canvas"></canvas>
+
+
 <canvas id="photo" ></canvas>
 </div>
+<!-- <canvas id="canvas2" ></canvas> -->
+
 <button id="startbutton">Prendre une photo</button>
-<!-- <canvas id="overlay"></canvas> -->
+<canvas id="overlay"></canvas>
 <canvas id="res" hidden ></canvas>
 
 <form action="">
