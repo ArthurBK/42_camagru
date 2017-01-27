@@ -21,7 +21,7 @@
 <button id="startbutton">Prendre une photo</button>
 <canvas id="overlay"></canvas>
 <canvas id="res" hidden ></canvas>
-
+<input type="file" id="fileUpload" onchange="handleFiles(this.files)" >
 <form action="">
 <div id="filters" >
 <?php

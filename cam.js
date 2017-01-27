@@ -1,3 +1,6 @@
+var fileUpload = document.getElementById("fileUpload");
+var viedoStatus = false;
+
 var video = function() {
 
     var streaming = false,
@@ -44,6 +47,7 @@ var video = function() {
                 video.src = vendorURL.createObjectURL(stream);
             }
             video.play();
+            videoStatus = true;
         },
         function(err) {
             console.log("An error occured! " + err);
@@ -59,8 +63,8 @@ var video = function() {
     }
 
     var handler = function() {
-      for (var i = 1; i < 1000; i++)
-              clearInterval(i);
+        for (var i = 1; i < 1000; i++)
+            clearInterval(i);
         handleImage(this.value);
     };
 
@@ -114,10 +118,14 @@ var video = function() {
     }
 
     function takepicture() {
-        canvas.width = width;
-        canvas.height = height;
-        canvas.getContext('2d').drawImage(video, 0, 0, width, height);
-        var data = canvas.toDataURL('image/png');
+        if (videoStatus)
+        {
+          canvas.width = width;
+          canvas.height = height;
+          canvas.getContext('2d').drawImage(video, 0, 0, width, height);
+        }// else
+          // canvas.getContext('2d').drawImage(video, 0, 0, width, height);
+        var data = canvas.toDataURL();
         // console.log(data);
         httpRequest('POST', "capture.php", data);
         // photo.setAttribute('src', data);
@@ -131,85 +139,100 @@ var video = function() {
 }();
 
 
-        var canvas;
-        var ctx;
-        var x = 0;
-        var y = 0;
-        var WIDTH = 400;
-        var HEIGHT = 400;
-        var dragok = false;
+var canvas;
+var ctx;
+var x = 0;
+var y = 0;
+var WIDTH = 400;
+var HEIGHT = 400;
+var dragok = false;
 
-        function rect(x,y,w,h) {
-         ctx.beginPath();
-         ctx.rect(x,y,w,h);
-         ctx.closePath();
-         ctx.fill();
-        }
+function rect(x, y, w, h) {
+    ctx.beginPath();
+    ctx.rect(x, y, w, h);
+    ctx.closePath();
+    ctx.fill();
+}
 
-      function clear() {
-       ctx.clearRect(0, 0, photo.width, photo.height);
-      }
-
-
-
-      var init = function(img) {
-       photo = document.getElementById("photo");
-       photo.onmouseup = myUp;
-       photo.onmousedown = myDown;
-       photo.witdh = 400;
-       photo.height = 400;
-       ctx = photo.getContext("2d");
-       return setInterval(function() {draw(img);}, 10);
-      }
-
-      function draw(img) {
-       clear();
-      //  ctx.fillStyle = "#FAF7F8";
-      //  rect(0,0,WIDTH,HEIGHT);
-      // var img = new Image();
-      // img.src = 'filters/moustache1.png';
-      // img.onload = function() {
-      //     // photo.width = video.width;
-      //     // photo.height = video.height;
-// console.log("yo");
-      photo.getContext('2d').drawImage(img, x, y, 200 , 200);
-      // }
+function clear() {
+    ctx.clearRect(0, 0, photo.width, photo.height);
+}
 
 
 
-      }
+var init = function(img) {
+    photo = document.getElementById("photo");
+    photo.onmouseup = myUp;
+    photo.onmousedown = myDown;
+    photo.witdh = 400;
+    photo.height = 400;
+    ctx = photo.getContext("2d");
+    return setInterval(function() {
+        draw(img);
+    }, 10);
+}
 
-      function myMove(e){
-       if (dragok){
+function draw(img) {
+    clear();
+    photo.getContext('2d').drawImage(img, x, y, 200, 200);
+}
+
+function myMove(e) {
+    if (dragok) {
         x = e.pageX - photo.offsetLeft - 100;
         y = e.pageY - photo.offsetTop - 100;
-       }
-      }
+    }
+}
 
-      function myDown(e){
-       if (e.pageX < x + 200 + photo.offsetLeft && e.pageX > x - 200 +
-       photo.offsetLeft && e.pageY < y + 200 + photo.offsetTop &&
-       e.pageY > y - 200 + photo.offsetTop){
+function myDown(e) {
+    if (e.pageX < x + 200 + photo.offsetLeft && e.pageX > x - 200 +
+        photo.offsetLeft && e.pageY < y + 200 + photo.offsetTop &&
+        e.pageY > y - 200 + photo.offsetTop) {
         x = e.pageX - photo.offsetLeft - 100;
         y = e.pageY - photo.offsetTop - 100;
         dragok = true;
         photo.onmousemove = myMove;
-       }
-      }
+    }
+}
 
-      function myUp(){
-       dragok = false;
-       photo.onmousemove = null;
-      }
-
-
-      // photo.onmousedown = myDown;
-      // photo.onmouseup = myUp;
+function myUp() {
+    dragok = false;
+    photo.onmousemove = null;
+}
 
 
+fileUpload.addEventListener("change", handleFiles, false);
 
 
+function handleFiles(e){
+    var reader = new FileReader();
+    video = document.getElementById('video'),
+    canvas = document.getElementById('canvas');
+    video.pause();
+    videoStatus = false;
+    reader.onload = function(event){
+        var img = new Image();
+        img.onload = function(){
+            canvas.width = video.width;
+            canvas.height = video.height;
+            canvas.getContext('2d').drawImage(img,0,0);
+        }
+        img.src = event.target.result;
+    }
+    reader.readAsDataURL(e.target.files[0]);
+}
 
-
-
- // canvas.observe("object:moving", function (event) {console.log("yo");});
+//
+// function handleFiles(e) {
+//   var reader = new FileReader();
+//   reader.onload = function(event){
+//       var img = new Image();
+//       img.onload = function(){
+//           canvas.width = img.width;
+//           canvas.height = img.height;
+//           canvas.getContext('2d').drawImage(img,0,0);
+//       }
+//       img.src = event.target.result;
+//   }
+//   reader.readAsDataURL(e.target.files[0]);
+// }

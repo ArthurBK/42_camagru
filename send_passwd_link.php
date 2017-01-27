@@ -2,15 +2,17 @@
 session_start();
 include "header.php";
 include "install.php";
-if (isset($_SESSION['loggued_on_user']) && $_SESSION['loggued_on_user'] !== "") {
-    header("Location: scene.php");
+if ((isset($_SESSION['loggued_on_user']) && $_SESSION['loggued_on_user'] !== "")
+|| $_POST['email'] === "") {
+    header("Location: ../index.php");
+    return;
 }
 try {
     $query = 'SELECT * FROM users WHERE email=:email';
     $prep = $pdo->prepare($query);
+// print("yo");
     $prep->bindValue(':email', $_POST['email'], PDO::PARAM_INT);
     $prep->execute();
-// print($prep->rowCount());
     if ($prep->rowCount() == 1) {
         $arr = $prep->fetch();
         $prep->closeCursor();
@@ -24,7 +26,7 @@ try {
         $prep->execute();
         $email = $_POST['email'];
         $subject = 'Reinitialisation de mot de passe';
-        $message = 'Bonjour http://localhost:3000/reset_passwd_token?token='.$token;
+        $message = 'Bonjour http://localhost:3000/reset_passwd_token.php?token='.$token;
         $boundary = "-----=".md5(rand());
         $header = "From: \"WeaponsB\"<weaponsb@mail.fr>\n";
         $header .= "Reply-to: \"WeaponsB\" <weaponsb@mail.fr>\n";
@@ -35,10 +37,11 @@ try {
 
     $prep->closeCursor();
     $prep = null;
-    header("Location: index.php");
+    header("Location: ../index.php");
     return;
 //
 } catch (PDOException $e) {
     $msg = 'ERREUR PDO dans ' . $e->getFile() . ' L.' . $e->getLine() . ' : ' . $e->getMessage();
     die($msg);
 }
+?>
