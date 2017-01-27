@@ -9,6 +9,7 @@ if (isset($_SESSION['loggued_on_user']) && $_SESSION['loggued_on_user'] !== "")
 try {
     $query = 'SELECT * FROM images';
     $arr = $pdo->query($query)->fetchAll();
+        echo "<div class=\"gallery\" >";
 
     foreach ($arr as $image) {
         $query = 'SELECT count(*) AS "likes" FROM likes WHERE id_image=:id_image AND liked=:liked;';
@@ -29,6 +30,7 @@ try {
         $prep->closeCursor();
         $prep = null;
         $thumb =  json_decode('"\uD83D\uDC4D"');
+        // echo "<div class=\"image\" >";
         echo "<div class=\"image\" ><img src=\"$image[path]\"></img></div>";
         if ($connected){
 
@@ -55,7 +57,9 @@ else {
             echo "<div>$comment[username]: $comment[content]</div>";
         }
       }
+        // echo "</div>";
 }
+        echo "</div>";
     // print_r($arr);
 
     // $prep->closeCursor();
