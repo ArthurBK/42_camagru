@@ -17,6 +17,7 @@ try {
     $prep->bindValue(':id_user', $id_user, PDO::PARAM_INT);
     $prep->bindValue(':id_image', $_POST['id_image'], PDO::PARAM_INT);
     $prep->bindValue(':content', $_POST['content'], PDO::PARAM_LOB);
+    // $prep->bindValue(':timestamp', time(), PDO::PARAM_LOB);
     $prep->execute();
     $prep->closeCursor();
     $prep = null;
