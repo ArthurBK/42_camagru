@@ -52,32 +52,33 @@ try {
         $prep = null;
         $thumb =  json_decode('"\uD83D\uDC4D"');
         // echo "<div class=\"image\" >";
-        echo "<div class=\"image\" ><img src=\"$image[path]\"></img></div>";
+        echo "<div class=\"image\" ><img src=\"$image[path]\"></img>";
         if ($connected){
 
-        print("<form action=\"like.php\" method=\"post\">
-              <div>$arr[likes] Likes
+        print("<form action=\"like.php\" class=\"myform\" method=\"post\">
+              <div>$arr[likes]
               <input type=\"submit\" value=$thumb ></div>
               <input type=\"hidden\" name=\"id_image\" value=$image[id] >
               </form>
               ");
+
+        echo "<div class=\"comments\">";
         foreach ($comments as $comment) {
-            echo "<div>$comment[username]: $comment[content]</div>";
+            echo "<div><strong>$comment[username]:</strong> $comment[content]</div>";
         }
-        print("
+        print("</div>
               <form action=\"comment.php\" method=\"post\">
               <input type=\"text\" name=\"content\" >
               <input type=\"hidden\" name=\"id_image\" value=$image[id] >
               ");
         if (isset($_GET['page']))
-{
-$page = $_GET['page'];
-
+        {
+          $page = $_GET['page'];
           print("<input type=\"hidden\" name=\"page\" value=$page >");
-}
+        }
         print("
               <input type=\"submit\" value=\"comment\">
-              </form>
+              </form></div>
               ");
     }
 else {

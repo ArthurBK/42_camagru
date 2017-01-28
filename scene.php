@@ -14,12 +14,20 @@
 <canvas id="canvas"></canvas>
 <canvas id="photo" ></canvas>
 </div>
-<button id="startbutton" disabled>Prendre une photo</button>
- Or Upload your pic <input type="file" id="fileUpload" onchange="handleFiles(this.files)" >
+<div>
+<button id="startbutton" disabled><?php echo json_decode('"\uD83D\uDCF8"'); ?></button>
+</div>
+<div class="upload">
+ Or Upload your pic:  <input type="file" id="fileUpload" onchange="handleFiles(this.files)" >
+</div>
+<div>
+<div class="play">
 <button type="button" onclick="bigger();" >+</button>
 <button type="button" onclick="smaller();" >-</button>
+</div>
+</div>
 
-<form action="">
+<!-- <form action=""> -->
 <div id="filters" >
 <?php
   $dir = new DirectoryIterator(dirname(__FILE__).'/filters');
@@ -31,7 +39,7 @@ foreach ($dir as $fileinfo) {
 }
 ?>
 </div>
-</form>
+<!-- </form> -->
 <div id="mypics" >
 <?php
   try {
@@ -51,9 +59,10 @@ foreach ($dir as $fileinfo) {
     // print_r($arr);
       $count = 0;
       foreach ($arr as $image) {
-// echo "$count";
-      if ($count == 0)
+          // echo "$count";
+      if ($count == 0) {
           echo "<div class=\"line\">";
+      }
           echo "<div><div><img class=\"mini\" src=\"$image[path]\"></img></div>";
           print("<div><form action=\"delete_image.php\" method=\"post\">
                 <input type=\"hidden\" name=\"id_image\" value=$image[id] >
@@ -61,11 +70,9 @@ foreach ($dir as $fileinfo) {
                 </form></div></div>
                 ");
           $count += 1;
-          if ($count == 2)
-          {
+          if ($count == 2) {
               $count = 0;
               echo "</div>";
-
           }
       }
   } catch (PDOException $e) {
