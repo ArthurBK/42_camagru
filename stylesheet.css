@@ -127,6 +127,16 @@ input[type=submit] {
     width: 200px;
 }
 
+.filter:hover {
+    cursor: pointer;
+}
+
+#photo:active {
+  cursor: -webkit-grabbing;
+}
+
+
+
 #webcam>* {
     position: absolute;
     /*top: 0;*/
@@ -137,10 +147,16 @@ input[type=submit] {
     margin: auto;
     /*position: relative;*/
 }
-
+/*
 #mypics {
     display: flex;
-    flex-direction: column;
+    /*flex-direction: column;*/
+    /*align-items: center;*/
+/*}*/
+
+.line {
+    display: flex;
+    /*flex-direction: column;*/
     align-items: center;
 }
 
@@ -148,4 +164,16 @@ input[type=submit] {
     display: flex;
     flex-direction: column;
     align-items: center;
+}
+
+#startbutton {
+    cursor: pointer;
+}
+
+#startbutton:disabled {
+    cursor: default;
+}
+
+.mini {
+  width: 50%;
 }

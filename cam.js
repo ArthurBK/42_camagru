@@ -2,16 +2,18 @@ var fileUpload = document.getElementById("fileUpload");
 var viedoStatus = false;
 var xImg = 200;
 var yImg = 200;
+webcam = document.getElementById('startbutton');
+
 
 var video = function() {
 
     var streaming = false,
-        video = document.getElementById('video'),
         res = document.getElementById('res'),
         canvas = document.getElementById('canvas'),
         webcam = document.getElementById('webcam'),
         mypics = document.getElementById('mypics'),
-        startbutton = document.getElementById('startbutton'),
+        video = document.getElementById('video'),
+
         width = 520,
         height = 0;
 
@@ -20,15 +22,6 @@ var video = function() {
         navigator.mozGetUserMedia ||
         navigator.msGetUserMedia);
 
-    function handleImage(e) {
-        var img = new Image();
-        img.src = e;
-        img.onload = function() {
-            init(img);
-            photo.width = video.width;
-            photo.height = video.height;
-        }
-    }
 
     navigator.getUserMedia({
             video: true,
@@ -57,17 +50,6 @@ var video = function() {
         context.drawImage(video, 0, 0, canvas.width, canvas.height);
         // overlay.src = URL.createObjectURL('filters/moustache1.png');
         setTimeout(drawFrame, 50);
-    }
-
-    var handler = function() {
-        for (var i = 1; i < 1000; i++)
-            clearInterval(i);
-        handleImage(this.value);
-    };
-
-    var radios = document.getElementsByName('filter');
-    for (var i = radios.length; i--;) {
-        radios[i].onclick = handler;
     }
 
 
@@ -181,6 +163,7 @@ function myUp() {
 fileUpload.addEventListener("change", handleFiles, false);
 
 function handleFiles(e) {
+    document.getElementById('startbutton').disabled = false;
     var reader = new FileReader();
     video = document.getElementById('video'),
         canvas = document.getElementById('canvas');
@@ -209,4 +192,40 @@ function smaller() {
         xImg -= 10;
         yImg -= 10;
     }
+}
+
+function handleImage(e) {
+    video = document.getElementById('video');
+    var img = new Image();
+    img.src = e;
+// console.log(e);
+    img.onload = function() {
+        init(img);
+        photo.width = video.width;
+        photo.height = video.height;
+    }
+}
+
+
+var handler = function(src) {
+    for (var i = 1; i < 1000; i++)
+        clearInterval(i);
+    handleImage(src);
+};
+
+var radios = document.getElementsByName('filter');
+for (var i = radios.length; i--;) {
+    radios[i].onclick = handler;
+}
+
+
+var classname = document.getElementsByClassName("filter");
+
+var myFunction = function() {
+handler(this.src);
+document.getElementById('startbutton').disabled = false;
+};
+
+for (var i = 0; i < classname.length; i++) {
+    classname[i].addEventListener('click', myFunction, false);
 }

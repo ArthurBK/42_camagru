@@ -14,7 +14,7 @@
 <canvas id="canvas"></canvas>
 <canvas id="photo" ></canvas>
 </div>
-<button id="startbutton">Prendre une photo</button>
+<button id="startbutton" disabled>Prendre une photo</button>
  Or Upload your pic <input type="file" id="fileUpload" onchange="handleFiles(this.files)" >
 <button type="button" onclick="bigger();" >+</button>
 <button type="button" onclick="smaller();" >-</button>
@@ -26,7 +26,7 @@
 foreach ($dir as $fileinfo) {
     if (!$fileinfo->isDot()) {
         $src = 'filters/'.$fileinfo->getFilename();
-        echo "<input type=\"radio\" name=\"filter\" value=\"$src\" ><img class=\"filter\" src=$src ></img>";
+        echo "<img class=\"filter\" src=$src ></img>";
     }
 }
 ?>
@@ -49,13 +49,24 @@ foreach ($dir as $fileinfo) {
       $prep->execute();
       $arr = $prep->fetchAll();
     // print_r($arr);
+      $count = 0;
       foreach ($arr as $image) {
-          echo "<div class=\"image\" ><img src=\"$image[path]\"></img>";
-          print("<form action=\"delete_image.php\" method=\"post\">
+// echo "$count";
+      if ($count == 0)
+          echo "<div class=\"line\">";
+          echo "<div><div><img class=\"mini\" src=\"$image[path]\"></img></div>";
+          print("<div><form action=\"delete_image.php\" method=\"post\">
                 <input type=\"hidden\" name=\"id_image\" value=$image[id] >
                 <input type=\"submit\" value=\"delete\" >
-                </form></div>
+                </form></div></div>
                 ");
+          $count += 1;
+          if ($count == 2)
+          {
+              $count = 0;
+              echo "</div>";
+
+          }
       }
   } catch (PDOException $e) {
       $msg = 'ERREUR PDO dans ' . $e->getFile() . ' L.' . $e->getLine() . ' : ' . $e->getMessage();
