@@ -1,7 +1,7 @@
 <?php
 session_start();
 include "header.php";
-include "install.php";
+include "config/setup.php";
 
 try {
     $query = 'SELECT * FROM users WHERE username=:username;';

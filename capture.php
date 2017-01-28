@@ -1,6 +1,6 @@
 <?php
 session_start();
-include("install.php");
+include("config/setup.php");
 $img = base64_decode(str_replace('data:image/png;base64,','', $_POST['img']));
 $filter = base64_decode(str_replace('data:image/png;base64,','', $_POST['filter']));
 

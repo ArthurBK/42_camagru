@@ -1,7 +1,7 @@
 <?php
 session_start();
 include "header.php";
-include "install.php";
+include "config/setup.php";
 if ((isset($_SESSION['loggued_on_user']) && $_SESSION['loggued_on_user'] !== "")
 || $_POST['password'] === "") {
     header("Location: index.php");

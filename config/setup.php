@@ -1,8 +1,7 @@
 <?php
+
+include "database.php";
 try {
-    $DB_DSN = "mysql:host=localhost;";
-    $DB_USER = "root";
-    $DB_PASSWORD = "root";
 
     $pdo = new PDO($DB_DSN, $DB_USER, $DB_PASSWORD);
     $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);//Ligne 4

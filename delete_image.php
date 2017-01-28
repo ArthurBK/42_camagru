@@ -1,7 +1,7 @@
 <?php
 session_start();
 include "header.php";
-include "install.php";
+include "config/setup.php";
 
 try {
     $query = 'DELETE FROM comments WHERE id_image=:id_image;';

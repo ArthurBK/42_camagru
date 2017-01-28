@@ -1,6 +1,6 @@
 <?PHP
 session_start();
-include("../install.php");
+include("../config/setup.php");
 if (empty($_POST['username'])
  || empty($_POST['password']) || $_POST['submit'] !== "OK") {
     header("Location: login_form.php");

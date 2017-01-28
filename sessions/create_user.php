@@ -1,6 +1,6 @@
 <?PHP
 session_start();
-include("../install.php");
+include("../config/setup.php");
 if (empty($_POST['password']) || empty($_POST['username'])
  || empty($_POST['email']) || $_POST['submit'] !== "OK") {
     header("Location: new_user.php");
