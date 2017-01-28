@@ -40,7 +40,7 @@ try {
       $prep = null;
       $email = $arr['email'];
       $subject = 'Nouveau commentaire';
-      $message = 'Bonjour, vous avew un nouveau commentaire';
+      $message = 'Bonjour, vous avez un nouveau commentaire';
       $boundary = "-----=".md5(rand());
       $header = "From: \"WeaponsB\"<weaponsb@mail.fr>\n";
       $header .= "Reply-to: \"WeaponsB\" <weaponsb@mail.fr>\n";
@@ -52,6 +52,13 @@ try {
     $msg = 'ERREUR PDO dans ' . $e->getFile() . ' L.' . $e->getLine() . ' : ' . $e->getMessage();
     die($msg);
 }
-    header("Location: index.php");
-    return;
+  if (isset($_POST['page']))
+{
+    $page = $_POST['page'];
+    header("Location: index.php?page=$page");
+
+}
+  else
+    header("Location: index.php?");
+  return;
 ?>

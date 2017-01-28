@@ -43,7 +43,7 @@ try {
         $prep = null;
         $query = "SELECT comments.content, users.username FROM comments
               INNER JOIN users ON comments.id_user = users.id
-              WHERE comments.id_image=:id_image;";
+              WHERE comments.id_image=:id_image ORDER BY comments.id;";
         $prep = $pdo->prepare($query);
         $prep->bindValue(':id_image', $image[id], PDO::PARAM_INT);
         $prep->execute();
@@ -68,6 +68,14 @@ try {
               <form action=\"comment.php\" method=\"post\">
               <input type=\"text\" name=\"content\" >
               <input type=\"hidden\" name=\"id_image\" value=$image[id] >
+              ");
+        if (isset($_GET['page']))
+{
+$page = $_GET['page'];
+
+          print("<input type=\"hidden\" name=\"page\" value=$page >");
+}
+        print("
               <input type=\"submit\" value=\"comment\">
               </form>
               ");
@@ -95,7 +103,7 @@ else {
              }
         }
         echo '</p>';
-    
+
     // print_r($arr);
 
     // $prep->closeCursor();
