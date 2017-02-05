@@ -1,12 +1,11 @@
 <?php
 session_start();
-include "header.php";
 include "config/setup.php";
 
 try {
     $query = 'SELECT * FROM users WHERE username=:username;';
     $prep = $pdo->prepare($query);
-    $prep->bindValue(':username', $_SESSION['loggued_on_user'], PDO::PARAM_STR);
+    $prep->bindValue(':username', $_SESSION['logged'], PDO::PARAM_STR);
     $prep->execute();
     $arr = $prep->fetchAll();
     $id_user = $arr[0][id];
